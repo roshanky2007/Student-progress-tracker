@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Student Progress Tracker{% endblock %}
+
+{% block content %}
+<!-- Welcome Section -->
+<div class="row">
+    <div class="col-12">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h2><i class="fas fa-sun"></i> Welcome, {{ user.full_name }}!</h2>
+                <p class="mb-0">Role: {{ user.get_role_display }}</p>
+                {% if user.class_name %}
+                    <p class="mb-0">Class: {{ user.class_name }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mt-4">
+    {% if user.is_student %}
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5><i class="fas fa-chart-line"></i> Performance</h5>
+                <h3>85%</h3>
+                <p class="mb-0">Overall Grade</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5><i class="fas fa-calendar-check"></i> Attendance</h5>
+                <h3>92%</h3>
+                <p class="mb-0">This Month</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5><i class="fas fa-tasks"></i> Tasks</h5>
+                <h3>5</h3>
+                <p class="mb-0">Pending</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5><i class="fas fa-bullseye"></i> Goals</h5>
+                <h3>3</h3>
+                <p class="mb-0">Active</p>
+            </div>
+        </div>
+    </div>
+    {% elif user.is_teacher %}
+    <div class="col-md-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5><i class="fas fa-users"></i> Students</h5>
+                <h3>25</h3>
+                <p class="mb-0">Total Students</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5><i class="fas fa-book"></i> Subjects</h5>
+                <h3>3</h3>
+                <p class="mb-0">Teaching</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5><i class="fas fa-clipboard-check"></i> Grading</h5>
+                <h3>8</h3>
+                <p class="mb-0">Pending</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Charts Section -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-line"></i> Performance Trend</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="performanceChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-pie"></i> Attendance Overview</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="attendanceChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-bolt"></i> Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% if user.is_student %}
+                    <div class="col-md-3">
+                        <a href="#" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-book"></i><br>View Subjects
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="btn btn-outline-success w-100">
+                            <i class="fas fa-tasks"></i><br>My Tasks
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="btn btn-outline-info w-100">
+                            <i class="fas fa-calendar"></i><br>Attendance
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="btn btn-outline-warning w-100">
+                            <i class="fas fa-bullseye"></i><br>My Goals
+                        </a>
+                    </div>
+                    {% elif user.is_teacher %}
+                    <div class="col-md-3">
+                        <a href="#" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-plus"></i><br>Add Assignment
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="btn btn-outline-success w-100">
+                            <i class="fas fa-check"></i><br>Mark Attendance
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="btn btn-outline-info w-100">
+                            <i class="fas fa-grade"></i><br>Grade Work
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="btn btn-outline-warning w-100">
+                            <i class="fas fa-upload"></i><br>Add Resource
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Sample Chart.js implementation
+document.addEventListener('DOMContentLoaded', function() {
+    // Performance Chart
+    const performanceCtx = document.getElementById('performanceChart');
+    if (performanceCtx) {
+        new Chart(performanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Performance %',
+                    data: [75, 80, 85, 82, 88, 90],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    }
+
+    // Attendance Chart
+    const attendanceCtx = document.getElementById('attendanceChart');
+    if (attendanceCtx) {
+        new Chart(attendanceCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Present', 'Absent', 'Late'],
+                datasets: [{
+                    data: [85, 10, 5],
+                    backgroundColor: ['#28a745', '#dc3545', '#ffc107']
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

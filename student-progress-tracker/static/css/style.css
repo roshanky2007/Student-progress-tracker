@@ -1,0 +1,190 @@
+/* Student Progress Tracker - Main Stylesheet */
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+}
+
+/* Custom Card Styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color), #2980b9);
+    color: white;
+    border-radius: 10px 10px 0 0 !important;
+    border-bottom: none;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), #2980b9);
+    border: none;
+}
+
+.btn-success {
+    background: linear-gradient(45deg, var(--success-color), #229954);
+    border: none;
+}
+
+.btn-warning {
+    background: linear-gradient(45deg, var(--warning-color), #d68910);
+    border: none;
+}
+
+.btn-danger {
+    background: linear-gradient(45deg, var(--danger-color), #cb4335);
+    border: none;
+}
+
+/* Navigation */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+/* Forms */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Statistics Cards */
+.card.text-white h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.card.text-white i {
+    font-size: 1.5rem;
+    opacity: 0.8;
+}
+
+/* Dashboard specific */
+.bg-primary .card-body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Animation for cards */
+@keyframes slideInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.card {
+    animation: slideInUp 0.5s ease-out;
+}
+
+/* Chart containers */
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.875rem;
+    }
+
+    .card.text-white h3 {
+        font-size: 2rem;
+    }
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, var(--secondary-color), #34495e) !important;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 8px;
+    border: none;
+}
+
+/* Tables */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* Loading animation */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2980b9;
+}
